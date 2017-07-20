@@ -24,7 +24,7 @@ import java.util.Map;
 public class JCMediaManager implements TextureView.SurfaceTextureListener, MediaPlayer.OnPreparedListener, MediaPlayer.OnCompletionListener, MediaPlayer.OnBufferingUpdateListener, MediaPlayer.OnSeekCompleteListener, MediaPlayer.OnErrorListener, MediaPlayer.OnInfoListener, MediaPlayer.OnVideoSizeChangedListener {
     public static String TAG = "JieCaoVideoPlayer";
 
-    private static JCMediaManager JCMediaManager;
+    private static fm.jiecao.jcvideoplayer_lib.JCMediaManager JCMediaManager;
     public static JCResizeTextureView textureView;
     public static SurfaceTexture savedSurfaceTexture;
     public MediaPlayer mediaPlayer = new MediaPlayer();
@@ -40,7 +40,7 @@ public class JCMediaManager implements TextureView.SurfaceTextureListener, Media
     MediaHandler mMediaHandler;
     Handler mainThreadHandler;
 
-    public static JCMediaManager instance() {
+    public static fm.jiecao.jcvideoplayer_lib.JCMediaManager instance() {
         if (JCMediaManager == null) {
             JCMediaManager = new JCMediaManager();
         }
@@ -82,14 +82,14 @@ public class JCMediaManager implements TextureView.SurfaceTextureListener, Media
                         Method method = clazz.getDeclaredMethod("setDataSource", String.class, Map.class);
                         method.invoke(mediaPlayer, CURRENT_PLAYING_URL, MAP_HEADER_DATA);
                         mediaPlayer.setLooping(CURRENT_PLING_LOOP);
-                        mediaPlayer.setOnPreparedListener(JCMediaManager.this);
-                        mediaPlayer.setOnCompletionListener(JCMediaManager.this);
-                        mediaPlayer.setOnBufferingUpdateListener(JCMediaManager.this);
+                        mediaPlayer.setOnPreparedListener(fm.jiecao.jcvideoplayer_lib.JCMediaManager.this);
+                        mediaPlayer.setOnCompletionListener(fm.jiecao.jcvideoplayer_lib.JCMediaManager.this);
+                        mediaPlayer.setOnBufferingUpdateListener(fm.jiecao.jcvideoplayer_lib.JCMediaManager.this);
                         mediaPlayer.setScreenOnWhilePlaying(true);
-                        mediaPlayer.setOnSeekCompleteListener(JCMediaManager.this);
-                        mediaPlayer.setOnErrorListener(JCMediaManager.this);
-                        mediaPlayer.setOnInfoListener(JCMediaManager.this);
-                        mediaPlayer.setOnVideoSizeChangedListener(JCMediaManager.this);
+                        mediaPlayer.setOnSeekCompleteListener(fm.jiecao.jcvideoplayer_lib.JCMediaManager.this);
+                        mediaPlayer.setOnErrorListener(fm.jiecao.jcvideoplayer_lib.JCMediaManager.this);
+                        mediaPlayer.setOnInfoListener(fm.jiecao.jcvideoplayer_lib.JCMediaManager.this);
+                        mediaPlayer.setOnVideoSizeChangedListener(fm.jiecao.jcvideoplayer_lib.JCMediaManager.this);
                         mediaPlayer.prepareAsync();
                         mediaPlayer.setSurface(new Surface(savedSurfaceTexture));
                     } catch (Exception e) {
