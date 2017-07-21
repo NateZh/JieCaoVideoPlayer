@@ -34,9 +34,6 @@ import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 
-/**
- * Created by Nathen on 16/7/30.
- */
 public abstract class JCVideoPlayer extends FrameLayout implements View.OnClickListener, SeekBar.OnSeekBarChangeListener, View.OnTouchListener {
 
 	public static final String TAG = "JieCaoVideoPlayer";
@@ -44,7 +41,9 @@ public abstract class JCVideoPlayer extends FrameLayout implements View.OnClickL
 	public static boolean ACTION_BAR_EXIST = false;
 	public static boolean TOOL_BAR_EXIST = true;
 
+//	public static int FULLSCREEN_ORIENTATION = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT;//TODO
 	public static int FULLSCREEN_ORIENTATION = ActivityInfo.SCREEN_ORIENTATION_SENSOR;
+
 	public static int NORMAL_ORIENTATION = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT;
 	public static boolean SAVE_PROGRESS = true;
 
@@ -126,7 +125,7 @@ public abstract class JCVideoPlayer extends FrameLayout implements View.OnClickL
 		this.showTopContainer = showTopContainer;
 	}
 
-	protected boolean showTopContainer=true;
+	protected boolean showTopContainer=false;
 
 	public boolean isAutoFullScreenPlay () {
 		return autoFullScreenPlay;
