@@ -10,6 +10,7 @@ import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Handler;
 import android.provider.Settings;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
@@ -348,7 +349,7 @@ public abstract class JCVideoPlayer extends FrameLayout implements View.OnClickL
 	}
 
 	protected void onStartVideo () {
-		if (autoFullScreenPlay && fullscreenButton!=null){
+		if (autoFullScreenPlay && fullscreenButton != null) {
 			fullscreenButton.performClick();
 
 		}
@@ -879,11 +880,15 @@ public abstract class JCVideoPlayer extends FrameLayout implements View.OnClickL
 
 	public static void showSupportActionBar (Context context) {
 		if (ACTION_BAR_EXIST) {
-			ActionBar ab = JCUtils.getAppCompActivity(context).getSupportActionBar();
-			if (ab != null) {
-				ab.setShowHideAnimationEnabled(false);
-				ab.show();
+			FragmentActivity activity = JCUtils.getAppCompActivity(context);
+			if (activity instanceof AppCompatActivity) {
+				ActionBar ab = ((AppCompatActivity) activity).getSupportActionBar();
+				if (ab != null) {
+					ab.setShowHideAnimationEnabled(false);
+					ab.show();
+				}
 			}
+
 		}
 		if (TOOL_BAR_EXIST) {
 			JCUtils.getAppCompActivity(context).getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
@@ -892,10 +897,13 @@ public abstract class JCVideoPlayer extends FrameLayout implements View.OnClickL
 
 	public static void hideSupportActionBar (Context context) {
 		if (ACTION_BAR_EXIST) {
-			ActionBar ab = JCUtils.getAppCompActivity(context).getSupportActionBar();
-			if (ab != null) {
-				ab.setShowHideAnimationEnabled(false);
-				ab.hide();
+			FragmentActivity activity = JCUtils.getAppCompActivity(context);
+			if (activity instanceof AppCompatActivity) {
+				ActionBar ab = ((AppCompatActivity) activity).getSupportActionBar();
+				if (ab != null) {
+					ab.setShowHideAnimationEnabled(false);
+					ab.show();
+				}
 			}
 		}
 		if (TOOL_BAR_EXIST) {
