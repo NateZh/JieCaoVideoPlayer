@@ -79,8 +79,10 @@ public class JCUtils {
             return (AppCompatActivity) context;
         } else if (context instanceof ContextThemeWrapper) {
             return getAppCompActivity(((ContextThemeWrapper) context).getBaseContext());
-        }
-        return (FragmentActivity) context;
+        }else if (context instanceof FragmentActivity) {{
+            return (FragmentActivity) context;
+        }}
+        return null;
     }
 
     public static int dip2px(Context context, float dpValue) {

@@ -213,6 +213,7 @@ public class JCVideoPlayerStandard extends JCVideoPlayer {
                 return;
             }
             if (currentState == CURRENT_STATE_NORMAL) {
+
                 if (!url.startsWith("file") && !url.startsWith("/") &&
                         !JCUtils.isWifiConnected(getContext()) && !WIFI_TIP_DIALOG_SHOWED) {
                     showWifiDialog(JCUserActionStandard.ON_CLICK_START_THUMB);
@@ -632,7 +633,9 @@ public class JCVideoPlayerStandard extends JCVideoPlayer {
 
     public void setAllControlsVisible(int topCon, int bottomCon, int startBtn, int loadingPro,
                                       int thumbImg, int coverImg, int bottomPro) {
-        topContainer.setVisibility(topCon);
+        if (showTopContainer){
+            topContainer.setVisibility(topCon);
+        }
         bottomContainer.setVisibility(bottomCon);
         startButton.setVisibility(startBtn);
         loadingProgressBar.setVisibility(loadingPro);

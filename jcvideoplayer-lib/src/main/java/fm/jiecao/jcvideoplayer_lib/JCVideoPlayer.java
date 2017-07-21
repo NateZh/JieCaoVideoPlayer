@@ -42,7 +42,8 @@ public abstract class JCVideoPlayer extends FrameLayout implements View.OnClickL
 	public static final String TAG = "JieCaoVideoPlayer";
 
 	public static boolean ACTION_BAR_EXIST = false;
-	public static boolean TOOL_BAR_EXIST = false;
+	public static boolean TOOL_BAR_EXIST = true;
+
 	public static int FULLSCREEN_ORIENTATION = ActivityInfo.SCREEN_ORIENTATION_SENSOR;
 	public static int NORMAL_ORIENTATION = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT;
 	public static boolean SAVE_PROGRESS = true;
@@ -120,6 +121,13 @@ public abstract class JCVideoPlayer extends FrameLayout implements View.OnClickL
 
 	protected boolean autoFullScreenPlay;
 
+	//bugs to do
+	public void setShowTopContainer (boolean showTopContainer) {
+		this.showTopContainer = showTopContainer;
+	}
+
+	protected boolean showTopContainer=true;
+
 	public boolean isAutoFullScreenPlay () {
 		return autoFullScreenPlay;
 	}
@@ -138,6 +146,7 @@ public abstract class JCVideoPlayer extends FrameLayout implements View.OnClickL
 		bottomContainer = (ViewGroup) findViewById(R.id.layout_bottom);
 		textureViewContainer = (ViewGroup) findViewById(R.id.surface_container);
 		topContainer = (ViewGroup) findViewById(R.id.layout_top);
+		topContainer.setVisibility(GONE);
 
 		startButton.setOnClickListener(this);
 		fullscreenButton.setOnClickListener(this);
@@ -351,7 +360,6 @@ public abstract class JCVideoPlayer extends FrameLayout implements View.OnClickL
 	protected void onStartVideo () {
 		if (autoFullScreenPlay && fullscreenButton != null) {
 			fullscreenButton.performClick();
-
 		}
 	}
 
@@ -534,7 +542,7 @@ public abstract class JCVideoPlayer extends FrameLayout implements View.OnClickL
 		JCUtils.scanForActivity(getContext()).getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 		clearFullscreenLayout();
 
-		if (getContext() instanceof AppCompatActivity) {
+		if (getContext() instanceof FragmentActivity) {
 			JCUtils.getAppCompActivity(getContext()).setRequestedOrientation(NORMAL_ORIENTATION);
 		}
 
@@ -603,7 +611,7 @@ public abstract class JCVideoPlayer extends FrameLayout implements View.OnClickL
 	}
 
 	public void clearFloatScreen () {
-		if (getContext() instanceof AppCompatActivity)
+		if (getContext() instanceof FragmentActivity)
 			JCUtils.getAppCompActivity(getContext()).setRequestedOrientation(NORMAL_ORIENTATION);
 		showSupportActionBar(getContext());
 		JCVideoPlayer currJcvd = JCVideoPlayerManager.getCurrentJcvd();
@@ -739,7 +747,7 @@ public abstract class JCVideoPlayer extends FrameLayout implements View.OnClickL
 	public void startWindowFullscreen () {
 		Log.i(TAG, "startWindowFullscreen " + " [" + this.hashCode() + "] ");
 		hideSupportActionBar(getContext());
-		if (getContext() instanceof AppCompatActivity)
+		if (getContext() instanceof FragmentActivity)
 			JCUtils.getAppCompActivity(getContext()).setRequestedOrientation(FULLSCREEN_ORIENTATION);
 
 		ViewGroup vp = (ViewGroup) (JCUtils.scanForActivity(getContext()))//.getWindow().getDecorView();
@@ -801,7 +809,7 @@ public abstract class JCVideoPlayer extends FrameLayout implements View.OnClickL
 
 	public static void startFullscreen (Context context, Class _class, String url, Object... objects) {
 		hideSupportActionBar(context);
-		if (context instanceof AppCompatActivity)
+		if (context instanceof FragmentActivity)
 			JCUtils.getAppCompActivity(context).setRequestedOrientation(FULLSCREEN_ORIENTATION);
 		ViewGroup vp = (ViewGroup) (JCUtils.scanForActivity(context))//.getWindow().getDecorView();
 				.findViewById(Window.ID_ANDROID_CONTENT);
@@ -921,11 +929,11 @@ public abstract class JCVideoPlayer extends FrameLayout implements View.OnClickL
 				&& currentScreen != SCREEN_WINDOW_FULLSCREEN
 				&& currentScreen != SCREEN_WINDOW_TINY) {
 			if (x > 0) {
-				if (getContext() instanceof AppCompatActivity)
+				if (getContext() instanceof FragmentActivity)
 					JCUtils.getAppCompActivity(getContext()).setRequestedOrientation(
 							ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 			} else {
-				if (getContext() instanceof AppCompatActivity)
+				if (getContext() instanceof FragmentActivity)
 					JCUtils.getAppCompActivity(getContext()).setRequestedOrientation(
 							ActivityInfo.SCREEN_ORIENTATION_REVERSE_LANDSCAPE);
 			}
