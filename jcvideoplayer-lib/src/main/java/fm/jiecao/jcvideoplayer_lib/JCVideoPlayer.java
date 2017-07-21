@@ -117,6 +117,16 @@ public abstract class JCVideoPlayer extends FrameLayout implements View.OnClickL
 
 	public abstract int getLayoutId ();
 
+	protected boolean autoFullScreenPlay;
+
+	public boolean isAutoFullScreenPlay () {
+		return autoFullScreenPlay;
+	}
+
+	public void setAutoFullScreenPlay (boolean autoFullScreenPlay) {
+		this.autoFullScreenPlay = autoFullScreenPlay;
+	}
+
 	public void init (Context context) {
 		View.inflate(context, getLayoutId(), this);
 		startButton = (ImageView) findViewById(R.id.start);
@@ -333,6 +343,15 @@ public abstract class JCVideoPlayer extends FrameLayout implements View.OnClickL
 		JCMediaManager.MAP_HEADER_DATA = headData;
 		onStatePreparing();
 		JCVideoPlayerManager.setFirstFloor(this);
+
+		onStartVideo();
+	}
+
+	protected void onStartVideo () {
+		if (autoFullScreenPlay && fullscreenButton!=null){
+			fullscreenButton.performClick();
+
+		}
 	}
 
 	public void onPrepared () {
